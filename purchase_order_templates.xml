@@ -5,132 +5,146 @@
         <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>       
 		<div class="page">
 		<span> <center><img src="/purchase/static/img/logo.png" width="100%" height="auto"></img></center> </span>
-		<span> <center><img src="/purchase/static/img/bg.png" width="20%" height="auto"></img></center> </span>
+		<span> <center><img src="/purchase/static/img/don-dat-hang.jpg" width="25%" height="auto"></img></center> </span>
             <div class="oe_structure"/>       
             <div class="row mt32 mb32">          				
-				<span t-if="o.partner_id" class="col-xs-7">
-				<strong>Nhà cung cấp</strong>(廠商): <span t-field="o.partner_id"/>			
+				<span class="col-xs-7">
+				<strong>Nhà cung cấp(廠商): <span t-field="o.partner_id"/>	</strong>		
 				</span>				
                 <span class="col-xs-5">
 				<strong>
 				</strong>
 				</span>				
-				<span t-if="o.partner_id.child_ids" class="col-xs-7">
+				<span  class="col-xs-7">
 				<span t-foreach="o.partner_id.child_ids" t-as="child">					
-				<strong>Người đại diện</strong>(連絡人): <span t-field="child.name"/>
+				<strong>Người đại diện(連絡人): <span t-field="child.name"/></strong>
 				</span>
 				</span>				
 				<span class="col-xs-5">
 				<strong></strong>
 				</span>				
-				<span t-if="o.partner_id.phone" class="col-xs-7">
-				<strong>Điện thoại</strong>(電話): <span t-field="o.partner_id.phone"/>
+				<span  class="col-xs-7">
+				<strong>Điện thoại(電話): <span t-field="o.partner_id.phone"/></strong>
 				</span>
 				<span class="col-xs-5">
 				<strong></strong>
 				</span>				
-				<span t-if="o.partner_id.fax" class="col-xs-7">
-				<strong>Fax</strong>(傳真): <span t-field="o.partner_id.fax"/>
+				<span  class="col-xs-7">
+				<strong>Fax(傳真): <span t-field="o.partner_id.fax"/></strong>
 				</span>
-				<span t-if="o.date_order" class="col-xs-5">
-                 <strong>Ngày đặt hàng</strong>(訂購日期): <span t-field="o.date_order"/>                      
+				<span  class="col-xs-5">
+                 <strong>Ngày đặt hàng(訂購日期): 
+				 <span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /> </strong>                   
                 </span>								
-				<span t-if="o.partner_id.email" class="col-xs-7">
-				<strong>Email:</strong> <span t-field="o.partner_id.email"/>				
+				<span  class="col-xs-7">
+				<strong>Email: <span t-field="o.partner_id.email"/>		</strong>		
 				</span>
-				<span t-if="o.name" class="col-xs-5">
-				<strong>Mã số đơn hàng</strong>(訂單編號):<span t-field="o.name"/>	
+				<span  class="col-xs-5">
+				<strong>Mã số đơn hàng(訂單編號): <span t-field="o.name"/>	</strong>
 				</span>							
-				<span t-if="o.partner_id.mobile" class="col-xs-7">
-				<strong>Di động(Tel):</strong> <span t-field="o.partner_id.mobile"/>
+				<span class="col-xs-7">
+				<strong>Di động(Tel):<span t-field="o.partner_id.mobile"/></strong> 
 				</span>
-				<span t-if="o.date_planned" class="col-xs-5">
-				<strong>Ngày giao hàng</strong>(交貨日期): <span t-field="o.date_planned"/>
+				<span  class="col-xs-5">
+				<strong>Ngày giao hàng(交貨日期): <span t-field="o.date_planned" t-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /></strong>
 				</span>				
 			</div>			
             <table class="table table-bordered" >
                 <thead >
-                    <tr style="border: 1px solid black;">
-						<th  style="border: 1px solid black;" align="center" class="text-center" width="30px"><strong><p>STT</p></strong></th>
-						<th style="border: 1px solid black;" class="text-center" width="50px"><strong><p>Mã Số</p></strong></th>
-						<th style="border: 1px solid black;" class="text-center" width="260px"><strong><p> Tên Hàng/Quy Cách </p></strong> </th>
-                        <th colspan="2" style="border: 1px solid black;" class="text-center" width="150px"><strong><p>ĐV</p></strong></th>
-                        <th style="border: 1px solid black;" class="text-center" width="100"><strong><p>Đơn Giá</p></strong></th>
-                        <th style="border: 1px solid black;" class="text-center" width="120px"><strong><p>Thành Tiền</p></strong></th>
-                        <th style="border: 1px solid black;" class="text-center" width="120px"><strong><p>Ghi Chú</p></strong></th>
+                    <tr >
+						<th  style="border: 1px solid black; border-bottom:0px; padding:0px " align="center" class="text-center" width="30px"><strong>STT</strong></th>
+						<th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="50px"><strong>Mã Số</strong></th>
+						<th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="260px"><strong>Tên Hàng/Quy Cách </strong> </th>
+                        <th style="border: 1px solid black;" align="center" class="text-center" width="75px">N.kho</th>
+						<th style="border: 1px solid black;" align="center" class="text-center" width="75px">T.Toán</th>
+                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="100"><strong>Đơn Giá</strong></th>
+                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="120px"><strong>Thành Tiền</strong></th>
+                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="120px"><strong>Ghi Chú</strong></th>
                     </tr>
-					<tr>
-						<th height="40" rowspan="2" style="border: 1px solid black;" class="text-center"><p>(STT)</p></th>
-						<th height="40" rowspan="2" style="border: 1px solid black;" class="text-center"><p>(码 号)</p></th>
-						<th rowspan="2" style="border: 1px solid black;" class="text-center"><p>(品名/規格)</p></th>
-						<th style="border: 1px solid black;" class="text-center" width="75px"><p>N.kho</p></th>
-						<th style="border: 1px solid black;" class="text-center" width="75px"><p>T.Toán</p></th>						
-						<th rowspan="2" style="border: 1px solid black;" class="text-center"><p>(單價)</p></th>
-						<th rowspan="2" style="border: 1px solid black;" class="text-center"><p>(總價)</p></th>
-						<th rowspan="2" style="border: 1px solid black;" class="text-center"><p>(備註)</p></th>
+					<tr >
+						<th style="border: 1px solid black; border-top:0px; padding:0px" align="center" class="text-center">(STT)</th>
+						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(码 号)</th>
+						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(品名/規格)</th>
+						<th style="border: 1px solid black;" align="center" class="text-center" width="62px"><span t-field="o.product_id.uom_id"/></th>
+						<th style="border: 1px solid black;" align="center" class="text-center" width="63px"><span t-field="o.product_id.uom_po_id"/></th>
+						
+						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(單價)</th>
+						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(總價)</th>
+						<th style="border: 1px solid black;border-top:0px" align="center" class="text-center">(備註)</th>
 					</tr>
-					<tr>
-						
-						
-						<th style="border: 1px solid black;" class="text-center" width="62px"><span t-field="o.product_id.uom_id"/></th>
-						<th style="border: 1px solid black;" class="text-center" width="63px"><span t-field="o.product_id.uom_po_id"/></th>
-						
-					</tr>
-
-					
+							
                 </thead>
                 <tbody style="border: 1px solid black;" >	
 					<t t-set="stt" t-value="1"/>
                     <tr style="border: 1px solid black;" t-foreach="o.order_line" t-as="line">					
-						<td style="border: 1px solid black;" class="text-center">
+						<td style="border: 1px solid black;" align="center" class="text-center">
                             <t t-esc="stt"/>
 							<t t-set="stt" t-value="stt+1"/>
                         </td>
-						<td style="border: 1px solid black;" class="text-center">
+						<td style="border: 1px solid black;" align="center" class="text-center">
                            <span t-field="line.product_id.default_code"/>
                         </td>
-						<td style="border: 1px solid black;">
-                            <span t-field="line.name"/>
+						<td style="border: 1px solid black;" align="center" >
+                            <span t-field="line.product_id"/>
                         </td>
-                        <td style="border: 1px solid black;" class="text-center">
+                        <td style="border: 1px solid black;" align="center" class="text-center">
                             
                         </td>
-						<td style="border: 1px solid black;" class="text-center">
+						<td style="border: 1px solid black;" align="center" class="text-center">
 						
 						<span t-field="line.product_qty"/> 
 						</td>
                        
-                        <td style="border: 1px solid black;" class="text-right">
+                        <td style="border: 1px solid black;" align="center" class="text-center">
                             <span t-field="line.price_unit"/>
                         </td>
-                        <td style="border: 1px solid black;" class="text-right"> <span t-field="line.price_subtotal"
+                        <td style="border: 1px solid black;" align="center" class="text-center"> <span t-field="line.price_subtotal"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
-						<td style="border: 1px solid black;">
+						<td style="border: 1px solid black;" align="center" class="text-center">
+						<span t-field="line.name" />
 						</td>						
                     </tr>
 					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" class="text-center" colspan="5">Thanh toán Công nợ
+					<td style="border: 1px solid black;" align="center" class="text-center" colspan="5">Thanh toán Công nợ
 					</td>
-					<td style="border: 1px solid black;" class="text-center" t-if="o.payment_term_id" colspan="3"> 
+					<td style="border: 1px solid black;" align="center" class="text-center"  colspan="3"> 
 					<span t-field="o.payment_term_id"/>
 					</td>
 					</tr>
 					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" colspan="5">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Giá chưa VAT 10%. Vui lòng ký nhận Fax lại dùm. Cảm ơn.</td>
-					<td style="border: 1px solid black;" class="text-center"><strong>Tổng Cộng</strong></td>
-					<td style="border: 1px solid black;" class="text-right"> <span t-field="o.amount_untaxed"
+					<td style="border: 1px solid black;" align="center" colspan="5">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Vui lòng ký nhận Fax lại dùm. Cảm ơn.</td>
+					<td style="border: 1px solid black;" align="center" class="text-center"><strong>Tổng Cộng</strong></td>
+					<td style="border: 1px solid black;" align="center" class="text-center"> <span t-field="o.amount_untaxed"
                                     t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
 					<td style="border: 1px solid black;"></td>
 					</tr>
-					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" align="right" colspan="6"> <strong>Thuế VAT 10%</strong></td>
-					<td style="border: 1px solid black;" class="text-right" ><span t-field="o.amount_tax"
-                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> </td>
-					<td style="border: 1px solid black;"></td>
+					<tr style="border: 1px solid black;" align="center">
+					
+					
+					<td  style="border: 1px solid black;" align="right" colspan="6">
+					
+					
+						<t  t-if="o.amount_untaxed >0" t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
+							<t t-if="vat>4">
+							<strong>Thuế VAT <t t-esc="'{0:,.0f}'.format(int(vat))" />%</strong>
+							</t>					
+							<t t-else="t-else"> <strong>Không có thuế VAT </strong></t>
+					
+					
+					</td>
+					<td style="border: 1px solid black;" align="center" class="text-center" >
+					<t t-if="vat>4">
+					<span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> 
+					</t>
+					<t t-else="t-else">
+					0
+					</t>
+					</td>
+					<td style="border: 1px solid black;" align="center"></td>
 					</tr>		
 					<tr style="border: 1px solid black;">
 					<td style="border: 1px solid black;" align="right" colspan="6"><strong>Tổng Có Thuế</strong></td>
-					<td style="border: 1px solid black;" class="text-right"> <span t-field="o.amount_total"
+					<td style="border: 1px solid black;" class="text-center"> <span t-field="o.amount_total"
                                     t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
 					</td>
 					<td style="border: 1px solid black;"></td>
@@ -138,10 +152,6 @@
                 </tbody>
             </table>						
 <table  border="0">
-	<tr>
-		
-	</tr>
-	<tr></tr>
   <tr>
     <td colspan="6">Ghi chú: CTY CP LÂM ĐẠT HƯNG: Mã số thuế -( 本公司統一編號): 3700239896</td>
   </tr>
@@ -159,6 +169,9 @@
   </tr>
   <tr>
     <td colspan="6">Ngày giao, chất lượng, quy cách phải theo yêu cầu của công ty, nếu không tuân theo những điều kiện trên chúng tôi có quyền cắt hết những đơn đặt hàng, những trường hợp trễ hẹn gây tổn thất cho công ty chúng tôi thì nhà cung cấp phải hoàn toàn chịu trách nhiệm về khoản thiệt hại đó.(交期,品質,規格須遵照本公司之要求,如有不符上述規定時,本公司有權取消部份或全訂單,且供 應廠商如因上述未符合規定而造成本公司之損失時,供應廠商同意負完全賠償之責任)</td>
+  </tr>
+  <tr>
+  <td>&#160;</td>
   </tr>
   <tr>
     <td align="center" colspan="2">CTY CP LÂM ĐẠT HƯNG</td>
