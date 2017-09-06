@@ -6,30 +6,46 @@
         <div class="page">
 		<span> <center><img src="/sale/static/img/logo.png" width="100%" height="auto"></img></center> </span>	
 		<h2><center> ĐƠN HÀNG MỚI</center></h2>          
-              
+                
+                <table width="100%" border="0px">
+				<tr >
+				<td width="20%">SỐ ĐƠN HÀNG:</td>
+				<td width="40%"><span t-field="doc.name" /></td>
+				<td width="20%"></td>
+				<td width="20%"></td>
+				</tr>
+				<tr >
+				<td>KHÁCH HÀNG:</td>
+				<td><span t-field="doc.partner_id" /></td>
+				<td align="right">CẢNG TỚI:&#160;</td>
+				<td></td>
+				</tr>
+				<tr >
+				<td>MSĐH:</td>
+				<td></td>
+				<td align="right">NGÀY GIAO:&#160;</td>
+				<td><span t-field="doc.confirmation_date" /></td>
+				</tr>				
+				</table>
+                <div name="payment_term" t-if="doc.payment_term_id" class="col-xs-3">
+                </div>         				
             <!-- Nhãn filename, chú ý chỉ số width chỉ có tác dụng với kiểu pdf, không có tác dụng hiển thị đối với kiểu html -->
             <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>		
             <t t-foreach="doc.order_lines_layouted()" t-as="page">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <tr>
-							<th width="20"> <center><p>STT</p><p>(...)</p></center></th>
-                            <th width="150"><center><p>KHÁCH HÀNG</p>
+							<th style="border: 1px solid black;" align="center" class="text-center" width="20"> <center><p>STT</p><p>(...)</p></center></th>
+                            <th style="border: 1px solid black;" align="center" class="text-center" ><center><p>TÊN SP KHÁCH</p>
                               <p>(...)</p></center></th>
-                            <th width="60"><center><p>MSĐH</p>
+                            <th style="border: 1px solid black;" align="center" class="text-center"><center><p>TÊN SẢN PHẨM LDS</p>
                               <p>(...)</p></center></th>
-                            <th><center><p>TÊN SP KHÁCH</p>
-                              <p>(...)</p></center></th>
-                            <th><center><p>TÊN SẢN PHẨM LDS</p>
-                              <p>(...)</p></center></th>
-							<th width="140"><center><p>QUY CÁCH/ MÀU</p>
+							<th style="border: 1px solid black;" align="center" class="text-center" width="140"><center><p>QUY CÁCH/ MÀU</p>
 							  <p>(...)</p></center></th>
-							<th width="30"><center><p>SL(CÁI)</p>
+							<th style="border: 1px solid black;" align="center" class="text-center" width="30"><center><p>SL(CÁI)</p>
 							  <p>(...)</p></center></th>
-							<th><center><p>NGÀY GIAO</p>
-							  <p>(...)</p></center></th>
-                        </tr>
+							<th style="border: 1px solid black;" align="center" class="text-center" ><center><p>GHI CHÚ</p>
+							  <p>(...)</p></center></th>                  
                         </tr>
                    </thead>
                    <tbody class="sale_tbody">
@@ -39,44 +55,39 @@
 							<t t-set="k" t-value="0"/> <!--khởi tạo biến tổng số lượng ban đầu = 0 -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr align="center">
-                                    <td>
+                                    <td style="border: 1px solid black;" class="text-center">
 									<t t-esc="i"/>
 									<t t-set="i" t-value="i+1"/>								
-									</td>
-                                    <td><span t-field="doc.partner_id"/></td>
-                                    <td>
-                                        <span t-field="doc.name"/> 
+									</td>    
+                                    <td style="border: 1px solid black;" class="text-center">
+                                        
                                     </td>
-                                    <td>
-                                        <span t-field="l.name"/>
-                                    </td>
-                                    <td>
+                                    <td style="border: 1px solid black;" class="text-center">
                                         <span t-field="l.product_id"/>
                                     </td>
-									<td>...</td>
-									<td>
+									<td style="border: 1px solid black;" class="text-center"></td>
+									<td style="border: 1px solid black;" class="text-center">
 										<span t-field="l.product_uom_qty"/>
-									</td>
+									</td>								
+                                 <td style="border: 1px solid black;"  class="text-center"> 
+										<span t-field="l.name"/>
 								
-                                 <td  t-att-rowspan="len(layout_category['lines'])"> <!---len(layout_category['lines'])để xác định độ dài dòng đơn hàng-->
-										
-										<span t-if="i==2">
-										<span t-field="doc.confirmation_date"/>
-										</span>
-										
 								</td>
                                 </tr>
 								<t t-set="k" t-value="k+l.product_uom_qty"/>
                             </t>
-
-							<td colspan="6" align="center"><strong> Tổng số lượng:   </strong></td>
+							<td style="border: 1px solid black;" colspan="4" align="right"><strong> Tổng số lượng:   </strong></td>
 						<!---0f là chỉ số phần thập phân-->
-							<td align="center"> <strong><t t-esc="'{0:,.0f}'.format(int(k))" /> </strong></td>
+							<td style="border: 1px solid black;"  align="center"> <strong><t t-esc="'{0:,.0f}'.format(int(k))" /> </strong></td>
+							<td style="border: 1px solid black;"></td>
 					</t>					
                     </tbody>
                 </table>
 				<hr/>
-				<span> Ghi chú: </span> <span style="position:relative;left:700px"> Người lập biểu(.../.../2017)</span>
+				<span class="col-xs-7" align="left"><strong>Ghi chú:</strong> </span>
+				<span class="col-xs-5" align="center"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('Ngày %d, Tháng %m, Năm %Y, Người lập biểu' )"/></strong> </span>
+				<span class="col-xs-7" align="left"><strong></strong> </span>
+				<span class="col-xs-5" align="center"><strong><span t-field="doc.user_id"/></strong> </span>
 
                 <t t-if="page_index &lt; page_size - 1" groups="sale.group_sale_layout">
                     <p style="page-break-before:always;"> </p>
@@ -86,8 +97,6 @@
         </div>
     </t>
 </template>
-
-
 <template id="report_saleorder">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="doc">
