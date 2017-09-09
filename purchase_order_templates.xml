@@ -34,7 +34,7 @@
 				</span>
 				<span  class="col-xs-5">
                  <strong>Ngày đặt hàng(訂購日期): 
-				 <span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /> </strong>                   
+				 <span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong>                   
                 </span>								
 				<span  class="col-xs-7">
 				<strong>Email: <span t-field="o.partner_id.email"/>		</strong>		
@@ -46,7 +46,7 @@
 				<strong>Di động(Tel):<span t-field="o.partner_id.mobile"/></strong> 
 				</span>
 				<span  class="col-xs-5">
-				<strong>Ngày giao hàng(交貨日期): <span t-field="o.date_planned" t-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /></strong>
+				<strong>Ngày giao hàng(交貨日期): <span t-field="o.date_planned" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /></strong>
 				</span>				
 			</div>			
             <table class="table table-bordered" >
@@ -67,7 +67,6 @@
 						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(品名/規格)</th>
 						<th style="border: 1px solid black;" align="center" class="text-center" width="62px"><span t-field="o.product_id.uom_id"/></th>
 						<th style="border: 1px solid black;" align="center" class="text-center" width="63px"><span t-field="o.product_id.uom_po_id"/></th>
-						
 						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(單價)</th>
 						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(總價)</th>
 						<th style="border: 1px solid black;border-top:0px" align="center" class="text-center">(備註)</th>
@@ -88,7 +87,7 @@
                             <span t-field="line.product_id"/>
                         </td>
                         <td style="border: 1px solid black;" align="center" class="text-center">
-                            
+			
                         </td>
 						<td style="border: 1px solid black;" align="center" class="text-center">
 						
@@ -96,10 +95,193 @@
 						</td>
                        
                         <td style="border: 1px solid black;" align="center" class="text-center">
-                            <span t-field="line.price_unit"/>
-                        </td>
-                        <td style="border: 1px solid black;" align="center" class="text-center"> <span t-field="line.price_subtotal"
-                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+							<t t-if="o.currency_id.name != 'VND' and o.currency_id.name != 'USD'">								
+								<t t-set="st0" t-value="str('%.2f'%line.price_unit)"/>
+								 <t t-set="st" t-value="st0[0:len(st0)-3]"/>
+								 <t t-set="d" t-value="len(st)"/>
+							<t t-if="d==1" >
+							<t t-set="st1" t-value="st0[0]+','+st0[len(st0)-3:len(st0)]"/>
+							</t>
+							<t t-if="d==2" >
+							<t t-set="st1" t-value="st0[0:2]+','+st0[len(st0)-3:len(st0)]"/>
+							</t>
+							<t t-if="d==3" >
+							<t t-set="st" t-value="st0[0:4]+','+st0[len(st0)-3:len(st0)]"/>
+							</t>
+							
+	 
+							<t t-if="d>3" >
+								 
+								 <t t-set="pn" t-value="d/3" />
+								 <t t-set="pd" t-value="d%3" />								 
+								<t t-if="pd == 1">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0] + '.' + st[1:4]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]+','+st0[len(st0)-2:len(st0)]" />
+									</t>
+								</t>
+								<t t-if="pd == 2">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+								</t>
+								<t t-if="pd == 0">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+','+st0[len(st0)-2:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]+','+st0[len(st0)-2:len(st0)]"/>
+								
+								</t>
+								</t>
+								</t>							 
+								 <span t-esc="st1"/>		
+							</t>
+							<t t-else="t-else">
+							<t t-if="o.currency_id.name == 'VND'">	
+	
+								<t t-set="st" t-value="str('%.0f'%line.price_unit)"/>
+								 <t t-set="d" t-value="len(st)"/>
+								 <t t-set="pn" t-value="d/3" />
+								 <t t-set="pd" t-value="d%3" />								 
+								<t t-if="pd == 1">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0] + '.' + st[1:4]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]" />
+									</t>
+								</t>
+								<t t-if="pd == 2">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]"/>
+									</t>
+								</t>
+								<t t-if="pd == 0">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]"/>
+									</t>								 
+								</t>
+								 <span t-esc="st1"/>							
+							</t>
+							<t t-if="o.currency_id.name == 'USD'">								 
+								 <t t-set="st0" t-value="str('%.3f'%line.price_unit)"/>
+								 <t t-set="st" t-value="st0[0:len(st0)-4]"/>
+								 <t t-set="d" t-value="len(st)"/>
+							<t t-if="d==1">
+							<t t-set="st1" t-value="st[0]+','+st0[2:5]"/>							
+							</t>
+							<t t-if="d==2">
+							<t t-set="st1" t-value="st[0:2]+','+st0[len(st0)-3:len(st0)]"/>
+							</t>
+							<t t-if="d==3">
+							<t t-set="st1" t-value="st[0:3]+','+st0[len(st0)-3:len(st0)]"/>							
+							</t>
+							<t t-if="d>3">	 						
+								 <t t-set="pn" t-value="d/3" />
+								 <t t-set="pd" t-value="d%3" />
+								<t t-if="pd == 1">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0] + '.' + st[1:4]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]+','+st0[len(st0)-3:len(st0)]" />
+									</t>
+								</t>
+								<t t-if="pd == 2">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+								</t>
+								<t t-if="pd == 0">
+									<t t-if="pn == 1">
+									<t t-set="st1" t-value="st+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 2">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 3">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>
+									<t t-if="pn == 4">
+									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]+','+st0[len(st0)-3:len(st0)]"/>
+									</t>								 
+								</t>
+							</t>	 
+								 <span t-esc="st1"/>
+								 
+			
+								 
+								 
+							</t>
+								
+							</t>
+					   </td>
+                        <td style="border: 1px solid black;" align="center" class="text-center">
+						<span t-field="line.price_subtotal" />
+						</td>
 						<td style="border: 1px solid black;" align="center" class="text-center">
 						<span t-field="line.name" />
 						</td>						
@@ -119,17 +301,17 @@
 					<td style="border: 1px solid black;"></td>
 					</tr>
 					<tr style="border: 1px solid black;" align="center">
-					
-					
-					<td  style="border: 1px solid black;" align="right" colspan="6">
-					
-					
-						<t  t-if="o.amount_untaxed >0" t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
+					<td  style="border: 1px solid black;" align="right" colspan="6">	
+					<t t-if="o.amount_untaxed > 0">
+						<t t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
 							<t t-if="vat>4">
 							<strong>Thuế VAT <t t-esc="'{0:,.0f}'.format(int(vat))" />%</strong>
 							</t>					
 							<t t-else="t-else"> <strong>Không có thuế VAT </strong></t>
-					
+					</t>
+					<t t-else="t-else">
+					<strong>Không có thuế VAT</strong>
+					</t>
 					
 					</td>
 					<td style="border: 1px solid black;" align="center" class="text-center" >
