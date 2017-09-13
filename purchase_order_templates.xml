@@ -3,23 +3,22 @@
 <template id="report_purchaseorder_document">
     <t>
         <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>       
-		<div class="page">
+		<div class="page"  style="background-image:url(/purchase/static/img/lds1.png);">
+		<!-- khai báo css-->  
+        <link rel="stylesheet" href="/purchase/static/src/css/style.css"/> 
 		<span> <center><img src="/purchase/static/img/logo.png" width="100%" height="auto"></img></center> </span>
 		<span> <center><img src="/purchase/static/img/don-dat-hang.jpg" width="25%" height="auto"></img></center> </span>
-            <div class="oe_structure"/>       
-            <div class="row mt32 mb32">          				
+            <div style="margin-bottom:2px !important" class="row mt32 mb32">
 				<span class="col-xs-7">
 				<strong>Nhà cung cấp(廠商): <span t-field="o.partner_id"/>	</strong>		
-				</span>				
+				</span>
                 <span class="col-xs-5">
 				<strong>
 				</strong>
-				</span>				
-				<span  class="col-xs-7">
-				<span t-foreach="o.partner_id.child_ids" t-as="child">					
-				<strong>Người đại diện(連絡人): <span t-field="child.name"/></strong>
+				</span>	
+				<span  class="col-xs-7">									
+				<strong>Người đại diện(連絡人): <span t-field="o.partner_id.child_ids[0].name"/></strong>
 				</span>
-				</span>				
 				<span class="col-xs-5">
 				<strong></strong>
 				</span>				
@@ -33,8 +32,8 @@
 				<strong>Fax(傳真): <span t-field="o.partner_id.fax"/></strong>
 				</span>
 				<span  class="col-xs-5">
-                 <strong>Ngày đặt hàng(訂購日期): 
-				 <span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong>                   
+                <strong>Ngày đặt hàng(訂購日期): 
+				<span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong>                   
                 </span>								
 				<span  class="col-xs-7">
 				<strong>Email: <span t-field="o.partner_id.email"/>		</strong>		
@@ -49,329 +48,125 @@
 				<strong>Ngày giao hàng(交貨日期): <span t-field="o.date_planned" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /></strong>
 				</span>				
 			</div>			
-            <table class="table table-bordered" >
-                <thead >
-                    <tr >
-						<th  style="border: 1px solid black; border-bottom:0px; padding:0px " align="center" class="text-center" width="30px"><strong>STT</strong></th>
-						<th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="50px"><strong>Mã Số</strong></th>
-						<th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="260px"><strong>Tên Hàng/Quy Cách </strong> </th>
-                        <th style="border: 1px solid black;" align="center" class="text-center" width="75px">N.kho</th>
-						<th style="border: 1px solid black;" align="center" class="text-center" width="75px">T.Toán</th>
-                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="100"><strong>Đơn Giá</strong></th>
-                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="120px"><strong>Thành Tiền</strong></th>
-                        <th style="border: 1px solid black;border-bottom:0px" align="center" class="text-center" width="120px"><strong>Ghi Chú</strong></th>
+            <table>
+                <thead>
+                    <tr>
+						<th rowspan="2" width="8.5%"><strong><p>STT<br/>(序 號)</p></strong></th>
+						<th rowspan="2" width="14.3%"><strong><p>Mã Số<br/>(码 号)</p></strong></th>
+						<th rowspan="2" width="23.8%"><strong><p>Tên Hàng/Quy Cách<br/>(品名/規格)</p> </strong> </th> 
+						<th width="14.3%">T.Toán</th>
+                        <th rowspan="2" width="14.3%"><strong><p>Đơn Giá<br/>(單價)</p></strong></th>
+                        <th rowspan="2" width="14.3%"><strong><p>Thành Tiền<br/>(總價)</p></strong></th>
+                        <th rowspan="2" width="10.5%"><strong><p>Ghi Chú<br/>(備註)</p></strong></th>
                     </tr>
-					<tr >
-						<th style="border: 1px solid black; border-top:0px; padding:0px" align="center" class="text-center">(STT)</th>
-						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(码 号)</th>
-						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(品名/規格)</th>
-						<th style="border: 1px solid black;" align="center" class="text-center" width="62px"><span t-field="o.product_id.uom_id"/></th>
-						<th style="border: 1px solid black;" align="center" class="text-center" width="63px"><span t-field="o.product_id.uom_po_id"/></th>
-						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(單價)</th>
-						<th  style="border: 1px solid black;border-top:0px" align="center" class="text-center">(總價)</th>
-						<th style="border: 1px solid black;border-top:0px" align="center" class="text-center">(備註)</th>
-					</tr>
-							
+					<tr>
+						<th><span t-field="o.product_id.uom_po_id"/></th>
+					</tr>	
                 </thead>
-                <tbody style="border: 1px solid black;" >	
+                <tbody>
 					<t t-set="stt" t-value="1"/>
-                    <tr style="border: 1px solid black;" t-foreach="o.order_line" t-as="line">					
-						<td style="border: 1px solid black;" align="center" class="text-center">
+                    <tr class="tr" t-foreach="o.order_line" t-as="line">					
+						<td>
                             <t t-esc="stt"/>
 							<t t-set="stt" t-value="stt+1"/>
                         </td>
-						<td style="border: 1px solid black;" align="center" class="text-center">
+						<td>
                            <span t-field="line.product_id.default_code"/>
                         </td>
-						<td style="border: 1px solid black;" align="center" >
+						<td>
                             <span t-field="line.product_id"/>
-                        </td>
-                        <td style="border: 1px solid black;" align="center" class="text-center">
-			
-                        </td>
-						<td style="border: 1px solid black;" align="center" class="text-center">
-						
-						<span t-field="line.product_qty"/> 
+                        </td>                   
+						<td>
+							<span t-field="line.product_qty"/> 
 						</td>
-                       
-                        <td style="border: 1px solid black;" align="center" class="text-center">
-							<t t-if="o.currency_id.name != 'VND' and o.currency_id.name != 'USD'">								
-								<t t-set="st0" t-value="str('%.2f'%line.price_unit)"/>
-								 <t t-set="st" t-value="st0[0:len(st0)-3]"/>
-								 <t t-set="d" t-value="len(st)"/>
-							<t t-if="d==1" >
-							<t t-set="st1" t-value="st0[0]+','+st0[len(st0)-3:len(st0)]"/>
-							</t>
-							<t t-if="d==2" >
-							<t t-set="st1" t-value="st0[0:2]+','+st0[len(st0)-3:len(st0)]"/>
-							</t>
-							<t t-if="d==3" >
-							<t t-set="st" t-value="st0[0:4]+','+st0[len(st0)-3:len(st0)]"/>
-							</t>
-							
-	 
-							<t t-if="d>3" >
-								 
-								 <t t-set="pn" t-value="d/3" />
-								 <t t-set="pd" t-value="d%3" />								 
-								<t t-if="pd == 1">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0] + '.' + st[1:4]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]+','+st0[len(st0)-2:len(st0)]" />
-									</t>
-								</t>
-								<t t-if="pd == 2">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-								</t>
-								<t t-if="pd == 0">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+','+st0[len(st0)-2:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]+','+st0[len(st0)-2:len(st0)]"/>
-								
-								</t>
-								</t>
-								</t>							 
-								 <span t-esc="st1"/>		
-							</t>
-							<t t-else="t-else">
-							<t t-if="o.currency_id.name == 'VND'">	
-	
-								<t t-set="st" t-value="str('%.0f'%line.price_unit)"/>
-								 <t t-set="d" t-value="len(st)"/>
-								 <t t-set="pn" t-value="d/3" />
-								 <t t-set="pd" t-value="d%3" />								 
-								<t t-if="pd == 1">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0] + '.' + st[1:4]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]" />
-									</t>
-								</t>
-								<t t-if="pd == 2">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]"/>
-									</t>
-								</t>
-								<t t-if="pd == 0">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]"/>
-									</t>								 
-								</t>
-								 <span t-esc="st1"/>							
-							</t>
-							<t t-if="o.currency_id.name == 'USD'">								 
-								 <t t-set="st0" t-value="str('%.3f'%line.price_unit)"/>
-								 <t t-set="st" t-value="st0[0:len(st0)-4]"/>
-								 <t t-set="d" t-value="len(st)"/>
-							<t t-if="d==1">
-							<t t-set="st1" t-value="st[0]+','+st0[2:5]"/>							
-							</t>
-							<t t-if="d==2">
-							<t t-set="st1" t-value="st[0:2]+','+st0[len(st0)-3:len(st0)]"/>
-							</t>
-							<t t-if="d==3">
-							<t t-set="st1" t-value="st[0:3]+','+st0[len(st0)-3:len(st0)]"/>							
-							</t>
-							<t t-if="d>3">	 						
-								 <t t-set="pn" t-value="d/3" />
-								 <t t-set="pd" t-value="d%3" />
-								<t t-if="pd == 1">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0] + '.' + st[1:4]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0]+'.'+st[1:4]+'.'+st[4:7]+'.'+st[7:10] +'.'+st[10:13]+','+st0[len(st0)-3:len(st0)]" />
-									</t>
-								</t>
-								<t t-if="pd == 2">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:2] + '.' + st[2:5] +'.'+st[5:8] +'.'+st[8:11] + '.'+st[11:14]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-								</t>
-								<t t-if="pd == 0">
-									<t t-if="pn == 1">
-									<t t-set="st1" t-value="st+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 2">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 3">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>
-									<t t-if="pn == 4">
-									<t t-set="st1" t-value="st[0:3]+'.'+st[3:6]+'.'+st[6:9]+'.'+st[9:12]+','+st0[len(st0)-3:len(st0)]"/>
-									</t>								 
-								</t>
-							</t>	 
-								 <span t-esc="st1"/>
-								 
-			
-								 
-								 
-							</t>
-								
-							</t>
-					   </td>
-                        <td style="border: 1px solid black;" align="center" class="text-center">
-						<span t-field="line.price_subtotal" />
+                        <td>
+                            <t t-if="o.currency_id.name == 'VND'">
+                                    <!--<span t-esc="'%.2f'%line.price_unit"/>-->
+                             <span t-esc="'{0:,.0f}'.format(int(line.price_unit))"/>
+                            </t>
+                            <t t-else="t-else">
+                                    <!--<t t-if="o.currency_id.name == 'USD'">-->
+                                        <!--&lt;!&ndash;<span t-esc="'%.0f'%line.price_unit"/>&ndash;&gt;-->
+                                        <!--<span t-esc="'{0:,.3f}'.format(float(line.price_unit))"/>-->
+                                    <!--</t>-->
+                                <t t-if="o.currency_id.name != 'VND'">
+                                        <!--<span t-esc="'%.3f'%line.price_unit"/>-->
+                                     <span t-esc="'{0:,.2f}'.format(float(line.price_unit))"/>
+                                </t>
+                            </t>
+                        </td>
+                        <td> <span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
 						</td>
-						<td style="border: 1px solid black;" align="center" class="text-center">
+						<td>
 						<span t-field="line.name" />
 						</td>						
                     </tr>
-					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" align="center" class="text-center" colspan="5">Thanh toán Công nợ
-					</td>
-					<td style="border: 1px solid black;" align="center" class="text-center"  colspan="3"> 
-					<span t-field="o.payment_term_id"/>
-					</td>
+					<tr>
+						<td colspan="4">Thanh toán Công nợ
+						</td>
+						<td colspan="3"> 
+							<span t-field="o.payment_term_id"/>
+						</td>
 					</tr>
-					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" align="center" colspan="5">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Vui lòng ký nhận Fax lại dùm. Cảm ơn.</td>
-					<td style="border: 1px solid black;" align="center" class="text-center"><strong>Tổng Cộng</strong></td>
-					<td style="border: 1px solid black;" align="center" class="text-center"> <span t-field="o.amount_untaxed"
-                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
-					<td style="border: 1px solid black;"></td>
+					<tr>
+						<td style="text-align:left" colspan="4">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại  Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Vui lòng ký nhận Fax lại dùm. Cảm ơn.
+						</td>
+						<td><strong>Tổng Cộng</strong>
+						</td>
+						<td> <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+						</td>
+						<td></td>
 					</tr>
-					<tr style="border: 1px solid black;" align="center">
-					<td  style="border: 1px solid black;" align="right" colspan="6">	
-					<t t-if="o.amount_untaxed > 0">
-						<t t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
+					<tr>
+						<td style="text-align:right" colspan="5">
+							<t t-if="o.amount_untaxed > 0">
+								<t t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
+								<t t-if="vat>4">
+									<strong>Thuế VAT <t t-esc="'{0:,.0f}'.format(int(vat))" />%</strong>
+								</t>					
+								<t t-else="t-else"> <strong>Không có thuế VAT </strong>
+								</t>
+							</t>
+							<t t-else="t-else">
+								<strong>Không có thuế VAT</strong>
+							</t>
+						</td>
+						<td>
 							<t t-if="vat>4">
-							<strong>Thuế VAT <t t-esc="'{0:,.0f}'.format(int(vat))" />%</strong>
-							</t>					
-							<t t-else="t-else"> <strong>Không có thuế VAT </strong></t>
-					</t>
-					<t t-else="t-else">
-					<strong>Không có thuế VAT</strong>
-					</t>
-					
-					</td>
-					<td style="border: 1px solid black;" align="center" class="text-center" >
-					<t t-if="vat>4">
-					<span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> 
-					</t>
-					<t t-else="t-else">
-					0
-					</t>
-					</td>
-					<td style="border: 1px solid black;" align="center"></td>
+								<span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> 
+							</t>
+							<t t-else="t-else">
+								0
+							</t>
+						</td>
+						<td></td>
 					</tr>		
-					<tr style="border: 1px solid black;">
-					<td style="border: 1px solid black;" align="right" colspan="6"><strong>Tổng Có Thuế</strong></td>
-					<td style="border: 1px solid black;" class="text-center"> <span t-field="o.amount_total"
-                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-					</td>
-					<td style="border: 1px solid black;"></td>
+					<tr>
+						<td colspan="5" style="text-align:right"><strong>Tổng Có Thuế</strong>
+						</td>
+						<td> <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+						</td>
+						<td></td>
 					</tr>										
                 </tbody>
             </table>						
-<table  border="0">
-  <tr>
-    <td colspan="6">Ghi chú: CTY CP LÂM ĐẠT HƯNG: Mã số thuế -( 本公司統一編號): 3700239896</td>
-  </tr>
-  <tr>
-    <td colspan="6">- Địa chỉ(發票地址): 37 Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương.</td>
-  </tr>
-  <tr>
-    <td colspan="6">- Điện thoại(電話): 0274-790038, 0274-790039 Fax: 0274-790035</td>
-  </tr>
-  <tr>
-    <td colspan="6">Khi thanh toán phải mang theo Hóa đơn tài chính(Hóa đơn đỏ)(申請貨款時,需附發票正本)  </td>
-  </tr>
-  <tr>
-    <td colspan="6">Đơn đặt hàng phải có chữ ký xác nhận, Công ty sẽ thanh toán theo đơn đặt hàng(訂購單請務必簽回確認,本公司此為付款依據)</td>
-  </tr>
-  <tr>
-    <td colspan="6">Ngày giao, chất lượng, quy cách phải theo yêu cầu của công ty, nếu không tuân theo những điều kiện trên chúng tôi có quyền cắt hết những đơn đặt hàng, những trường hợp trễ hẹn gây tổn thất cho công ty chúng tôi thì nhà cung cấp phải hoàn toàn chịu trách nhiệm về khoản thiệt hại đó.(交期,品質,規格須遵照本公司之要求,如有不符上述規定時,本公司有權取消部份或全訂單,且供 應廠商如因上述未符合規定而造成本公司之損失時,供應廠商同意負完全賠償之責任)</td>
-  </tr>
-  <tr>
-  <td>&#160;</td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">CTY CP LÂM ĐẠT HƯNG</td>
-    <td align="center" colspan="2">PHÊ DUYỆT</td>
-    <td align="center" colspan="2">NHÀ CUNG CẤP</td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">(林達興實業有限公司)</td>
-    <td align="center" colspan="2">(审 核)</td>
-    <td align="center" colspan="2">(廠商簽認)</td>
-  </tr>
-</table>
+<div  class="tex-trai">
+	<p15><br/>
+	Ghi chú: CTY CP LÂM ĐẠT HƯNG: Mã số thuế -( 本公司統一編號): 3700239896<br/>
+	- Địa chỉ(發票地址): 37 Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương.<br/>
+	- Điện thoại(電話): 0274-790038, 0274-790039 Fax: 0274-790035<br/>
+	Khi thanh toán phải mang theo Hóa đơn tài chính(Hóa đơn đỏ)(申請貨款時,需附發票正本)<br/>
+	Đơn đặt hàng phải có chữ ký xác nhận, Công ty sẽ thanh toán theo đơn đặt hàng(訂購單請務必簽回確認,本公司此為付款依據)<br/>
+	Ngày giao, chất lượng, quy cách phải theo yêu cầu của công ty, nếu không tuân theo những điều kiện trên chúng tôi có quyền cắt hết những đơn đặt hàng, những trường hợp trễ hẹn gây tổn thất cho công ty chúng tôi thì nhà cung cấp phải hoàn toàn chịu trách nhiệm về khoản thiệt hại đó.(交期,品質,規格須遵照本公司之要求,如有不符上述規定時,本公司有權取消部份或全訂單,且供 應廠商如因上述未符合規定而造成本公司之損失時,供應廠商同意負完全賠償之責任).<br/>
+	</p15>
 </div>
-            <p t-field="o.notes"/>
-            <div class="oe_structure"/>        
+ <div class="mot"><p>CTY CP LÂM ĐẠT HƯNG<br/>(林達興實業有限公司)</p> </div>
+ <div class="hai"><p>PHÊ DUYỆT<br/>(审 核)</p></div>
+ <div class="ba"><p>NHÀ CUNG CẤP<br/>(廠商簽認)</p></div>
+</div>
+     <div class="oe_structure"/>
     </t>
 </template>
-
 <template id="report_purchaseorder">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
