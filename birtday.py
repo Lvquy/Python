@@ -73,6 +73,7 @@ while(k =='y'):
         chi_new = 'Tuất'
     if j == 0:
         chi_new = 'Hợi'
+    somayman= random.randrange(1,100,1)
     tuoitho = ['60','100','61','62','63','64','65','66','70','71','72','75','76','80','85','86','87','90''91','92','200','300','400','10000']
     if (nam - nams) > 18:
         if gtinh == 'nam' or gtinh == 'Nam' or gtinh == 'NAM':
@@ -98,17 +99,20 @@ while(k =='y'):
        if thangs < thang or (thangs == thang and ngays < ngay):
         print 'Sinh nhật năm nay của bạn đã qua',(datetime.date(now)-ngaysinhnhat).days,'ngày' ,'(',ngays,'-', thangs, '-',nam,')'
         print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
+        print 'Số may mắn của bạn hôm nay là:',somayman
         print '********code by Lv Quý *************'
         k = raw_input('Bạn muốn tiếp tục? Y/N ')
        else:
            if ngaysinhnhat == datetime.date(now):
                print 'Chúc mừng sinh nhật bạn',ten.title(), 'nhé!'
                print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
+               print 'Số may mắn của bạn hôm nay là:', somayman
                print '********code by Lv Quý *************'
                k = raw_input('Bạn muốn tiếp tục? Y/N ')
            else:
             print 'Còn',(ngaysinhnhat - datetime.date(now)).days, 'ngày nữa đến sinh nhật bạn','(',ngays,'-', thangs, '-',nam,')'
             print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
+            print 'Số may mắn của bạn hôm nay là:', somayman
             print '********code by Lv Quý *************'
             k = raw_input('Bạn muốn tiếp tục? Y/N ')
 
