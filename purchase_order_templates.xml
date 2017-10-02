@@ -2,67 +2,55 @@
 <odoo>
 <template id="report_purchaseorder_document">
     <t>
-        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>       
-		<div class="page"  style="background-image:url(/purchase/static/img/lds1.png);">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/> 
+		<t t-set="Taxes" t-value="0"/>
+		
+		<div class="page" >
 		<!-- khai báo css-->  
         <link rel="stylesheet" href="/purchase/static/src/css/style.css"/> 
 		<span> <center><img src="/purchase/static/img/logo.png" width="100%" height="auto"></img></center> </span>
-		<span> <center><img src="/purchase/static/img/don-dat-hang.jpg" width="25%" height="auto"></img></center> </span>
-            <div style="margin-bottom:2px !important" class="row mt32 mb32">
-				<span class="col-xs-7">
+		<span style="margin-bottom:0px !important"> <center><img src="/purchase/static/img/don-dat-hang.jpg" width="25%" height="auto"></img></center> </span>
+            <div style="margin-bottom:2px !important; margin-top:3px !important" class="row mt32 mb32">
+				<span class="col-xs-12">
 				<strong>Nhà cung cấp(廠商): <span t-field="o.partner_id"/>	</strong>		
-				</span>
-                <span class="col-xs-5">
-				<strong>
-				</strong>
-				</span>	
+				</span>              
 				<span  class="col-xs-7">									
 				<strong>Người đại diện(連絡人): <span t-field="o.partner_id.child_ids[0].name"/></strong>
-				</span>
-				<span class="col-xs-5">
-				<strong></strong>
-				</span>				
-				<span  class="col-xs-7">
-				<strong>Điện thoại(電話): <span t-field="o.partner_id.phone"/></strong>
-				</span>
-				<span class="col-xs-5">
-				<strong></strong>
-				</span>				
-				<span  class="col-xs-7">
-				<strong>Fax(傳真): <span t-field="o.partner_id.fax"/></strong>
 				</span>
 				<span  class="col-xs-5">
                 <strong>Ngày đặt hàng(訂購日期): 
 				<span t-field="o.date_order" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong>                   
-                </span>								
+                </span>					
 				<span  class="col-xs-7">
-				<strong>Email: <span t-field="o.partner_id.email"/>		</strong>		
+				<strong>Điện thoại(電話): <span t-field="o.partner_id.phone"/></strong>
 				</span>
 				<span  class="col-xs-5">
 				<strong>Mã số đơn hàng(訂單編號): <span t-field="o.name"/>	</strong>
-				</span>							
-				<span class="col-xs-7">
-				<strong>Di động(Tel):<span t-field="o.partner_id.mobile"/></strong> 
+				</span>					
+				<span  class="col-xs-7">
+				<strong>Fax(傳真): <span t-field="o.partner_id.fax"/></strong>
 				</span>
 				<span  class="col-xs-5">
 				<strong>Ngày giao hàng(交貨日期): <span t-field="o.date_planned" t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /></strong>
+				</span>							
+				<span  class="col-xs-7">
+				<strong>Email: <span t-field="o.partner_id.email"/>		</strong>		
+				</span>							
+				<span class="col-xs-5">
+				<strong>Di động(Tel):<span t-field="o.partner_id.mobile"/></strong> 
 				</span>				
 			</div>			
             <table>
-                <thead>
                     <tr>
-						<th rowspan="2" width="8.5%"><strong><p>STT<br/>(序 號)</p></strong></th>
-						<th rowspan="2" width="14.3%"><strong><p>Mã Số<br/>(码 号)</p></strong></th>
-						<th rowspan="2" width="23.8%"><strong><p>Tên Hàng/Quy Cách<br/>(品名/規格)</p> </strong> </th> 
-						<th width="14.3%">T.Toán</th>
-                        <th rowspan="2" width="14.3%"><strong><p>Đơn Giá<br/>(單價)</p></strong></th>
-                        <th rowspan="2" width="14.3%"><strong><p>Thành Tiền<br/>(總價)</p></strong></th>
-                        <th rowspan="2" width="10.5%"><strong><p>Ghi Chú<br/>(備註)</p></strong></th>
+						<td width="6%"><strong><p>STT<br/>(序 號)</p></strong></td>
+						<td width="11.3%"><strong><p>Mã Số<br/>(码 号)</p></strong></td>
+						<td width="23.8%"><strong><p>Tên Hàng/Quy Cách<br/>(品名/規格)</p> </strong> </td> 
+						<td width="7%"><strong><p>ĐVT<br/>(...)</p></strong></td> 
+						<td width="8.3%"><strong><p>SL<br/>(...)</p></strong></td> 
+                        <td width="10.3%"><strong><p>Đơn Giá<br/>(單價)</p></strong></td> 
+                        <td width="12.3%"><strong><p>Thành Tiền<br/>(總價)</p></strong></td> 
+                        <td width="20.5%"><strong><p>Ghi Chú<br/>(備註)</p></strong></td> 
                     </tr>
-					<tr>
-						<th><span t-field="o.product_id.uom_po_id"/></th>
-					</tr>	
-                </thead>
                 <tbody>
 					<t t-set="stt" t-value="1"/>
                     <tr class="tr" t-foreach="o.order_line" t-as="line">					
@@ -75,7 +63,10 @@
                         </td>
 						<td>
                             <span t-field="line.product_id"/>
-                        </td>                   
+                        </td>
+						<td>
+							<span t-field="line.product_uom.name"/> 
+						</td>
 						<td>
 							<span t-field="line.product_qty"/> 
 						</td>
@@ -99,17 +90,18 @@
 						</td>
 						<td>
 						<span t-field="line.name" />
+						<t t-set="Taxes" t-value="int(line.taxes_id.amount)"/>
 						</td>						
                     </tr>
 					<tr>
-						<td colspan="4">Thanh toán Công nợ
+						<td colspan="5">Thanh toán Công nợ
 						</td>
 						<td colspan="3"> 
 							<span t-field="o.payment_term_id"/>
 						</td>
 					</tr>
 					<tr>
-						<td style="text-align:left" colspan="4">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại  Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Vui lòng ký nhận Fax lại dùm. Cảm ơn.
+						<td style="text-align:left" colspan="5">Yêu cầu cho LDS xác định mẫu trước khi sản xuất đại trà. Địa chỉ giao hàng: Số 37, Đường Đại  Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương. Vui lòng ký nhận Fax lại dùm. Cảm ơn.
 						</td>
 						<td><strong>Tổng Cộng</strong>
 						</td>
@@ -118,31 +110,29 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td style="text-align:right" colspan="5">
-							<t t-if="o.amount_untaxed > 0">
-								<t t-set="vat" t-value="(o.amount_tax*100)/o.amount_untaxed"/>
-								<t t-if="vat>4">
-									<strong>Thuế VAT <t t-esc="'{0:,.0f}'.format(int(vat))" />%</strong>
-								</t>					
-								<t t-else="t-else"> <strong>Không có thuế VAT </strong>
-								</t>
-							</t>
-							<t t-else="t-else">
-								<strong>Không có thuế VAT</strong>
-							</t>
-						</td>
+						<td style="text-align:right" colspan="6">
+						<t t-if="o.amount_tax ==0">
+                                    <strong>Không có thuế VAT(沒有稅)</strong>
+                                </t>
+                                <t t-else="t-else">
+                                    <t t-if="o.amount_tax > 0">
+                                        <strong>Thuế VAT(稅) <span t-esc="Taxes"/>% 
+                                        </strong>
+                                    </t>
+                                </t>
+                        </td>
 						<td>
-							<t t-if="vat>4">
-								<span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> 
-							</t>
-							<t t-else="t-else">
-								0
-							</t>
+						<t t-if="o.amount_tax &gt; 0">
+                                    <span t-field="o.amount_tax" t-options="{&quot;widget&quot;:&quot;monetary&quot;,&quot;display_currency&quot;:&quot;o.currency_id&quot;}"/>
+                                </t>
+                                <t t-else="t-else">
+                                    0
+                                </t>
 						</td>
 						<td></td>
 					</tr>		
 					<tr>
-						<td colspan="5" style="text-align:right"><strong>Tổng Có Thuế</strong>
+						<td colspan="6" style="text-align:right"><strong>Tổng Có Thuế</strong>
 						</td>
 						<td> <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
 						</td>
@@ -151,14 +141,15 @@
                 </tbody>
             </table>						
 <div  class="tex-trai">
-	<p15><br/>
+	<p2><br/>
+	Ghi chú: <span t-field = "o.notes"/><br/>
 	Ghi chú: CTY CP LÂM ĐẠT HƯNG: Mã số thuế -( 本公司統一編號): 3700239896<br/>
 	- Địa chỉ(發票地址): 37 Đại Lộ Thống Nhất, KCN Sóng Thần II, Dĩ An, Bình Dương.<br/>
 	- Điện thoại(電話): 0274-790038, 0274-790039 Fax: 0274-790035<br/>
 	Khi thanh toán phải mang theo Hóa đơn tài chính(Hóa đơn đỏ)(申請貨款時,需附發票正本)<br/>
 	Đơn đặt hàng phải có chữ ký xác nhận, Công ty sẽ thanh toán theo đơn đặt hàng(訂購單請務必簽回確認,本公司此為付款依據)<br/>
-	Ngày giao, chất lượng, quy cách phải theo yêu cầu của công ty, nếu không tuân theo những điều kiện trên chúng tôi có quyền cắt hết những đơn đặt hàng, những trường hợp trễ hẹn gây tổn thất cho công ty chúng tôi thì nhà cung cấp phải hoàn toàn chịu trách nhiệm về khoản thiệt hại đó.(交期,品質,規格須遵照本公司之要求,如有不符上述規定時,本公司有權取消部份或全訂單,且供 應廠商如因上述未符合規定而造成本公司之損失時,供應廠商同意負完全賠償之責任).<br/>
-	</p15>
+	Ngày giao, chất lượng, quy cách phải theo yêu cầu của công ty, nếu không tuân theo những điều kiện trên chúng tôi có quyền cắt hết những đơn đặt hàng, những trường hợp trễ hẹn gây tổn thất cho công ty chúng tôi thì nhà cung cấp phải hoàn toàn chịu trách nhiệm về khoản thiệt hại đó.(交期,品質,規格須遵照本公司之要求,如有不符上述規定時,本公司有權取消部份或全訂單,且供 應廠商如因上述未符合規定而造成本公司之損失時,供應廠商同意負完全賠償之責任).<br/><br/>
+	</p2>
 </div>
  <div class="mot"><p>CTY CP LÂM ĐẠT HƯNG<br/>(林達興實業有限公司)</p> </div>
  <div class="hai"><p>PHÊ DUYỆT<br/>(审 核)</p></div>
