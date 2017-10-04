@@ -1,0 +1,14 @@
+#!/usr/bin/python
+# -*- coding: utf8 -*-
+def docdayso(a):
+    chu = [u'không ',u'một ',u'hai ',u'ba ',u'bốn ',u'năm ',u'sáu ',u'bảy ',u'tám ',u'chín ']
+    so = [0,1,2,3,4,5,6,7,8,9]
+    t = str(a)
+    chuoi =''
+    for i in t:
+        for x in so:
+            if int(i) == x:
+                chuoi +=chu[x]
+    return chuoi
+a = input(u'Mời nhập dãy số cần chuyển đổi: ')
+print docdayso(a)
