@@ -1,0 +1,12 @@
+
+# !/usr/bin/python
+info =\
+    'noi dung dong 1\n' +\
+    'noi dung dong 2\n' +\
+    '....'
+
+f = open('C:\Windows\System32\drivers\etc\hosts', 'r+')
+f.write(info)
+str = f.read()
+print str
+f.close()
