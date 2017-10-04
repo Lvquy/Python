@@ -1,0 +1,9 @@
+def docso(a):
+    dso = {'1':'mot','2':'hai','3':'ba','4':'bon','5':'nam','6':'sau','7':'bay','8':'tam','9':'chin','0':'khong'}
+    for i in range(0,10):
+       t = str(i)
+       if a == i:
+        return dso[t]
+
+a = input('nhap so: ')
+print docso(a)
