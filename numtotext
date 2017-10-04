@@ -1,9 +1,10 @@
+#!/usr/bin/python
+# -*- coding: utf8 -*-
 def docso(a):
-    dso = {'1':'mot','2':'hai','3':'ba','4':'bon','5':'nam','6':'sau','7':'bay','8':'tam','9':'chin','0':'khong'}
+    dso = {'1':u'một','2':u'hai','3':u'ba','4':u'bốn','5':u'năm','6':u'sáu','7':u'bảy','8':u'tám','9':u'chín','0':u'không'}
     for i in range(0,10):
        t = str(i)
        if a == i:
         return dso[t]
-
-a = input('nhap so: ')
+a = input(u'Nhập số cần chuyển: ')
 print docso(a)
