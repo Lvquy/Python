@@ -11,4 +11,4 @@ def docdayso(a):
                 chuoi +=chu[x]
     return chuoi
 a = input(u'Mời nhập dãy số cần chuyển đổi: ')
-print docdayso(a)
+print a, u'Dịch thành chữ là:',docdayso(a)
