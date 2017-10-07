@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
-from datetime import datetime
-from datetime import date
+from datetime import datetime, date
 import time;
-import random
+import random, boi
+from ktcung import *
 localtime = time.localtime(time.time())
 now = datetime.now()
 nam = now.year
@@ -18,7 +18,7 @@ while(k =='y'):
         print 'Chào buổi sáng!!!'
     if (localtime.tm_hour > 12) and (localtime.tm_hour < 18):
         print 'Chào buổi chiều'
-    else:
+    if (localtime.tm_hour >18):
         print 'Chào buổi tối!!'
     ten = raw_input('Tên bạn là gì? ')
     gtinh = raw_input('Giới tính: ')
@@ -73,11 +73,12 @@ while(k =='y'):
         chi_new = 'Tuất'
     if j == 0:
         chi_new = 'Hợi'
+    a = cung(int(ngays), int(thangs))
     somayman= random.randrange(1,100,1)
     tuoitho = ['60','100','61','62','63','64','65','66','70','71','72','75','76','80','85','86','87','90''91','92','200','300','400','10000']
     if (nam - nams) > 18:
         if gtinh == 'nam' or gtinh == 'Nam' or gtinh == 'NAM':
-            honnhan=raw_input( 'Bạn có bạn gái rồi chứ? ')
+            honnhan=raw_input('Bạn có bạn gái rồi chứ? ')
         else:
             honnhan=raw_input('Bạn có bạn trai rồi chứ? ')
     else:
@@ -88,18 +89,28 @@ while(k =='y'):
        print '-------------------------'
        print 'Xin chào bạn',ten.title()
        print 'Hôm nay là ngày:',ngay,'tháng',thang,'năm',nam
-       print  'Năm nay bạn', nam -nams,'tuổi.','năm tuổi:',can_new,chi_new,',','Bạn đã sống được',(datetime.date(now) - sinhnhat).days, 'ngày.','(',((datetime.date(now) - sinhnhat).days)*24,')', 'Giờ'
-       if honnhan == 'rồi' or honnhan == 'roi' or honnhan == 'Rồi' or honnhan == 'RỒI' or honnhan == 'ROI' or honnhan == 'Roi':
-           print 'Chúc bạn luôn hạnh phúc bên người yêu!'
-       else:
-           if gtinh == 'nam' or gtinh =='NAM' or gtinh =='Nam':
-               print 'Bạn gái của bạn sẽ xuất hiện',random.choice(kq)
+       print 'Bạn thuộc cung:',a.ktcung()
+       print  'Năm nay bạn', nam -nams,'tuổi.','năm tuổi âm lịch của bạn là năm:',can_new,chi_new,',','Bạn đã sống được',(datetime.date(now) - sinhnhat).days, 'ngày.','(',((datetime.date(now) - sinhnhat).days)*24,')', 'Giờ'
+       if (nam -nams) >18:
+           if honnhan == 'rồi' or honnhan == 'roi' or honnhan == 'Rồi' or honnhan == 'RỒI' or honnhan == 'ROI' or honnhan == 'Roi':
+               print 'Chúc bạn luôn hạnh phúc bên người yêu!'
            else:
-               print 'Bạn trai của bạn sẽ xuất hiện',random.choice(kq)
+               if gtinh == 'nam' or gtinh =='NAM' or gtinh =='Nam':
+                   print 'Bạn gái của bạn sẽ xuất hiện',random.choice(kq)
+               else:
+                   print 'Bạn trai của bạn sẽ xuất hiện',random.choice(kq)
+       else:
+           print 'Đủ 18t đi anh chờ nhé' ,ten
        if thangs < thang or (thangs == thang and ngays < ngay):
         print 'Sinh nhật năm nay của bạn đã qua',(datetime.date(now)-ngaysinhnhat).days,'ngày' ,'(',ngays,'-', thangs, '-',nam,')'
         print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
         print 'Số may mắn của bạn hôm nay là:',somayman
+        print 'Bạn có muốn biết thêm về tính cách con người bạn không?'
+        b = input('Nhấn 1 để xem tính cách bạn: ')
+        if b == 1:
+            print boi.ketqua(a.ktcung())
+        else:
+            break
         print '********code by Lv Quý *************'
         k = raw_input('Bạn muốn tiếp tục? Y/N ')
        else:
@@ -107,15 +118,25 @@ while(k =='y'):
                print 'Chúc mừng sinh nhật bạn',ten.title(), 'nhé!'
                print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
                print 'Số may mắn của bạn hôm nay là:', somayman
+               print 'Bạn có muốn biết thêm về tính cách con người bạn không?'
+               b = input('Nhấn 1 để xem tính cách bạn: ')
+               if b == 1:
+                   print boi.ketqua(a.ktcung())
+               else:
+                   break
                print '********code by Lv Quý *************'
                k = raw_input('Bạn muốn tiếp tục? Y/N ')
            else:
             print 'Còn',(ngaysinhnhat - datetime.date(now)).days, 'ngày nữa đến sinh nhật bạn','(',ngays,'-', thangs, '-',nam,')'
             print 'Bạn còn sống được khoảng', int(int(random.choice(tuoitho)) - (nam - nams)), 'năm nữa'
             print 'Số may mắn của bạn hôm nay là:', somayman
+            b = input('Nhấn 1 để xem tính cách bạn: ')
+            if b ==1:
+                print boi.ketqua(a.ktcung())
+            else:
+                break
             print '********code by Lv Quý *************'
             k = raw_input('Bạn muốn tiếp tục? Y/N ')
-
     else:
       print 'Vui lòng nhập đúng định dạng ngày tháng năm'
       print '********code by Lv Quý *************'
