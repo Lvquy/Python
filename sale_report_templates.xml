@@ -5,26 +5,23 @@
         <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
         <div class="page">
 		<span> <center><img src="/sale/static/img/logo.png" width="100%" height="auto"></img></center> </span>	
-		<h2><center> ĐƠN HÀNG MỚI(........)</center></h2>          
-                <h2><center>(...)</center></h2>
+		<h2><center> ĐƠN HÀNG MỚI</center></h2>          
+                <h2><center>新訂單</center></h2>
                 <table width="100%" border="0px">
 				<tr >
-				<td width="20%"><strong>SỐ ĐƠN HÀNG(...):</strong></td>
+				<td width="20%"><strong>SỐ ĐƠN HÀNG(訂單號碼):&#160;</strong></td>
 				<td width="40%"><strong><span t-field="doc.name" /></strong></td>
-				<td width="20%"></td>
+				<td width="20%" align="right"><strong>MSĐH:&#160;</strong></td>
 				<td width="20%"></td>
 				</tr>
 				<tr >
-				<td><strong>KHÁCH HÀNG(...):</strong></td>
+				<td align="left"><strong>KHÁCH HÀNG(客戶):&#160;</strong></td>
 				<td><strong><span t-field="doc.partner_id" /></strong></td>
-				<td align="right"><strong>CẢNG TỚI(...):&#160;</strong></td>
-				<td></td>
+				<td align="right"><strong>NGÀY GIAO(交貨日期):&#160;</strong> </td>
+				<td align="left"><strong><span t-field="doc.validity_date"  t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong></td>
 				</tr>
-				<tr >
-				<td><strong>MSĐH(...):</strong></td>
-				<td></td>
-				<td align="right"><strong>NGÀY GIAO(...):&#160;</strong></td>
-				<td><strong><span t-field="doc.confirmation_date"  t-options="{&quot;format&quot;: &quot;dd-MM-yyyy&quot;}" /> </strong>
+				<tr>
+				<td height="10px">
 				</td>
 				</tr>
 				</table>
@@ -33,22 +30,22 @@
             <!-- Nhãn filename, chú ý chỉ số width chỉ có tác dụng với kiểu pdf, không có tác dụng hiển thị đối với kiểu html -->
             <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>		
             <t t-foreach="doc.order_lines_layouted()" t-as="page">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-							<th style="border: 1px solid black; padding:0 !important;" align="center" class="text-center" width="20" height="auto"> <center><p>STT</p><p>(...)</p></center></th>
-                            <th style="border: 1px solid black; padding:0 !important;" align="center" class="text-center" ><center><p>TÊN SP KHÁCH</p>
+                <table width="100%">
+                        <tr >
+							<th style="border: 1px solid black; padding:5px" align="center" class="text-center" width="10%"  height="auto"> <center><p>STT</p><p>序號</p></center>
+							</th>
+                            <th style="border: 1px solid black; " align="center" class="text-center" width="20%"><center><p>TÊN SP KHÁCH</p>
+                              <p>客戶品名</p></center></th>
+                            <th style="border: 1px solid black;" align="center" class="text-center" width="20%"><center><p>TÊN SẢN PHẨM LDS</p>
                               <p>(...)</p></center></th>
-                            <th style="border: 1px solid black; padding:0 !important;" align="center" class="text-center"><center><p>TÊN SẢN PHẨM LDS</p>
-                              <p>(...)</p></center></th>
-							<th style="border: 1px solid black; padding:0 !important; " align="center" class="text-center" width="140"><center><p>QUY CÁCH/ MÀU</p>
-							  <p>(...)</p></center></th>
-							<th style="border: 1px solid black; padding:0 !important;" align="center" class="text-center" width="30"><center><p>SL(CÁI)</p>
-							  <p>(...)</p></center></th>
-							<th style="border: 1px solid black; padding:0 !important;" align="center" class="text-center" ><center><p>GHI CHÚ</p>
-							  <p>(...)</p></center></th>                  
+							<th style="border: 1px solid black; " align="center" class="text-center" width="20%" ><center><p>QUY CÁCH/ MÀU</p>
+							  <p>規格顏色</p></center></th>
+							<th style="border: 1px solid black;" align="center" class="text-center" width="10%" ><center><p>SL(CÁI)</p>
+							  <p>數量</p></center></th>
+							<th style="border: 1px solid black; " align="center" class="text-center" width="20%"><center><p>GHI CHÚ</p>
+							  <p>備註</p></center></th>                  
                         </tr>
-                   </thead>
+                 
                    <tbody class="sale_tbody">
                         <t t-foreach="page" t-as="layout_category">
                             <!-- dữ liệu trong bảng -->
@@ -56,37 +53,44 @@
 							<t t-set="k" t-value="0"/> <!--khởi tạo biến tổng số lượng ban đầu = 0 -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr align="center">
-                                    <td style="border: 1px solid black;" class="text-center">
+                                    <td style="border: 1px solid black;  padding:10px" class="text-center">
 									<t t-esc="i"/>
 									<t t-set="i" t-value="i+1"/>								
-									</td>    
-                                    <td style="border: 1px solid black;" class="text-center">
-                                        
+									</td>
+                                    <td style="border: 1px solid black;  padding:10px" class="text-center">
+                                      <!-- <span t-field="l.product_id.cust_product_name"/>  -->
                                     </td>
-                                    <td style="border: 1px solid black;" class="text-center">
+                                    <td style="border: 1px solid black;  padding:10px" class="text-center">
                                         <span t-field="l.product_id"/>
                                     </td>
-									<td style="border: 1px solid black;" class="text-center"></td>
-									<td style="border: 1px solid black;" class="text-center">
+									<td style="border: 1px solid black;  padding:10px" class="text-center">
+
+									<span t-foreach="l.product_id.attribute_value_ids" t-as="attrib_value">
+									<t t-esc=" '%s: %s' % (attrib_value.attribute_id.name, attrib_value.name)"/>
+									</span>
+
+									</td>
+									<td style="border: 1px solid black;  padding:10px" class="text-center">
 										<span t-field="l.product_uom_qty"/>
-									</td>								
-                                 <td style="border: 1px solid black;"  class="text-center"> 
+									</td>
+                                 <td style="border: 1px solid black;  padding:10px"  class="text-center"> 
 										<span t-field="l.name"/>
-								
+
 								</td>
                                 </tr>
 								<t t-set="k" t-value="k+l.product_uom_qty"/>
                             </t>
-							<td style="border: 1px solid black;" colspan="4" align="center"><strong> Tổng số lượng(...):   </strong></td>
+							<td style="border: 1px solid black; padding:10px" colspan="4" align="center"><strong> Tổng số lượng(...):   </strong></td>
 						<!---0f là chỉ số phần thập phân-->
-							<td style="border: 1px solid black;"  align="center"> <strong><t t-esc="'{0:,.0f}'.format(int(k))" /> </strong></td>
-							<td style="border: 1px solid black;"></td>
-					</t>					
+							<td style="border: 1px solid black; padding:10px"  align="center"> <strong><t t-esc="'{0:,.0f}'.format(int(k))" /> </strong></td>
+							<td style="border: 1px solid black;  padding:10px"></td>
+					</t>
                     </tbody>
                 </table>
 				<hr/>
-				<span class="col-xs-7" align="left"><strong>Ghi chú:</strong> </span>
-				<span class="col-xs-5" align="center"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('Ngày %d, Tháng %m, Năm %Y, Người lập biểu' )"/></strong> </span>
+				<p align="left"><strong>Ghi chú(備註):&#160;</strong><span t-field="doc.note"/></p>
+				<span class="col-xs-7"/>
+				<span class="col-xs-5" align="center"><strong>Người lập biểu ( <span t-esc="context_timestamp(datetime.datetime.now()).strftime('Ngày %d, Tháng %m, Năm %Y' )"/> ) </strong> </span>
 				<span class="col-xs-7" align="left"><strong></strong> </span>
 				<span class="col-xs-5" align="center"><strong><span t-field="doc.user_id"/></strong> </span>
 				
@@ -125,9 +129,9 @@
 				</td>
 				<td align="center"><u>Tiến Độ SX</u><p><u>(...)</u></p>
 				</td>
-				<td align="center">
-				</td>
 				<td align="center"><u>CNC</u><p><u>(...)</u></p>
+				</td>
+				<td align="center">
 				</td>
 			</tr>
 			<tr align="center">
