@@ -1,4 +1,5 @@
 # coding: utf8
+
 def ketqua(cung):
     a = open('conten.txt','r');
     str = a.read();
